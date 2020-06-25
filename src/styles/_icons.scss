@@ -1,0 +1,157 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'untitled-font-1';
+  src: url('fonts/untitled-font-1.eot');
+  src: url('fonts/untitled-font-1.eot?#iefix') format('embedded-opentype'),
+    url('fonts/untitled-font-1.woff') format('woff'),
+    url('fonts/untitled-font-1.ttf') format('truetype'),
+    url('fonts/untitled-font-1.svg#untitled-font-1') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[data-icon]:before {
+  font-family: 'untitled-font-1', sans-serif !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^='icon-']:before,
+[class*=' icon-']:before {
+  font-family: 'untitled-font-1', sans-serif !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shop:before {
+  content: '\62';
+}
+.icon-sim:before {
+  content: '\63';
+}
+.icon-logo-italika:before {
+  content: '\64';
+}
+.icon-home:before {
+  content: '\65';
+}
+.icon-fenix:before {
+  content: '\66';
+}
+.icon-cedis:before {
+  content: '\67';
+}
+.icon-logo-oui:before {
+  content: '\68';
+}
+.icon-ekt-envia:before {
+  content: '\69';
+}
+.icon-money-3:before {
+  content: '\61';
+}
+.icon-credit-card-3:before {
+  content: '\6a';
+}
+.icon-calendar:before {
+  content: '\6b';
+}
+.icon-flash:before {
+  content: '\6c';
+}
+.icon-reparacion:before {
+  content: '\6e';
+}
+.icon-factura:before {
+  content: '\6f';
+}
+.icon-cancelacion:before {
+  content: '\72';
+}
+.icon-cambio:before {
+  content: '\70';
+}
+.icon-surtir-todo:before {
+  content: '\6d';
+}
+.icon-surtir-pedido:before {
+  content: '\71';
+}
+.icon-pedido:before {
+  content: '\73';
+}
+.icon-invoice:before {
+  content: '\74';
+}
+.icon-consumo:before {
+  content: '\75';
+}
+.icon-telefonia:before {
+  content: '\76';
+}
+.icon-cancelada-2:before {
+  content: '\77';
+}
+.icon-nocredit:before {
+  content: '\78';
+}
+.icon-bloqueada:before {
+  content: '\79';
+}
+.icon-autorizada-1:before {
+  content: '\7a';
+}
+.icon-lock:before {
+  content: '\41';
+}
+.icon-autorizada:before {
+  content: '\44';
+}
+.icon-cancelada:before {
+  content: '\45';
+}
+.icon-proceso:before {
+  content: '\42';
+}
+.icon-categorias:before {
+  content: '\43';
+}
+.icon-agregar-cliente:before {
+  content: '\46';
+}
+.icon-carrito:before {
+  content: '\47';
+}
+.icon-buscar:before {
+  content: '\48';
+}
+.icon-postal:before {
+  content: '\49';
+}
+.icon-cliente-1:before {
+  content: '\4a';
+}
+
+.la-sign-out:before {
+  content: '\f2fc';
+}
+
+.la-angle-right:before {
+  font-weight: bold;
+  font-size: smaller;
+  margin-right: 0.5rem;
+}
