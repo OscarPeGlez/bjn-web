@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import SearchKitchen from '../screens/SearchKitchen';
+import Search from '../screens/Search';
 
 const SearchLayout: React.FC<RouteComponentProps> = () => {
   return (
@@ -11,7 +11,7 @@ const SearchLayout: React.FC<RouteComponentProps> = () => {
       <Container>
         <Row className="justify-content-center">
           <Col lg={10}>
-            <SearchKitchen />
+            <Search />
           </Col>
         </Row>
       </Container>

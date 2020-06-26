@@ -2,12 +2,15 @@ import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { FC } from 'react';
 import { Button, Nav, Navbar } from 'react-bootstrap';
+import { RouteComponentProps, withRouter } from 'react-router';
 
 type NavBarProps = {
   toggle: () => void;
 };
 
-const NavBar: FC<NavBarProps> = props => {
+type Props = RouteComponentProps & NavBarProps;
+
+const NavBar: FC<Props> = props => {
   const { toggle } = props;
   return (
     <Navbar bg="light" className="navbar shadow-sm p-3 mb-5 bg-white rounded" expand>
@@ -27,4 +30,4 @@ const NavBar: FC<NavBarProps> = props => {
   );
 };
 
-export default NavBar;
+export default withRouter(NavBar);

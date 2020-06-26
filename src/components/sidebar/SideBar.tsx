@@ -11,13 +11,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React, { FC } from 'react';
 import { Button, Nav } from 'react-bootstrap';
+import { RouteComponentProps, withRouter } from 'react-router';
 
 type SideBarProps = {
   isOpen: boolean;
   toggle: () => void;
 };
 
-const SideBar: FC<SideBarProps> = props => {
+type Props = RouteComponentProps & SideBarProps;
+
+const SideBar: FC<Props> = props => {
   const { isOpen, toggle } = props;
   return (
     <div className={classNames('sidebar', { 'is-open': isOpen })}>
@@ -70,4 +73,4 @@ const SideBar: FC<SideBarProps> = props => {
   );
 };
 
-export default SideBar;
+export default withRouter(SideBar);

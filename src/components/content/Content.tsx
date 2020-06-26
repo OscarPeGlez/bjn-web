@@ -1,8 +1,12 @@
 import classNames from 'classnames';
 import React, { FC } from 'react';
 import { Container } from 'react-bootstrap';
-import { Route, Switch } from 'react-router';
-import SearchKitchen from '../../screens/SearchKitchen';
+import { connect, ConnectedProps } from 'react-redux';
+import { Route, RouteComponentProps, withRouter } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+import Home from '../../screens/Home';
+import Search from '../../screens/Search';
+import { RootState } from '../../store/reducers';
 import NavBar from './Navbar';
 
 type ContentProps = {
@@ -10,18 +14,29 @@ type ContentProps = {
   toggle: () => void;
 };
 
-const Content: FC<ContentProps> = props => {
+const connector = connect((state: RootState) => ({
+  counter: state.countReducer.count,
+}));
+
+type ReduxProps = ConnectedProps<typeof connector>;
+
+type Props = RouteComponentProps & ContentProps & ReduxProps;
+
+const Content: FC<Props> = props => {
   const { isOpen, toggle } = props;
+
   return (
     <Container fluid className={classNames('content', { 'is-open': isOpen })}>
       <NavBar toggle={toggle} />
-      <Switch>
-        <Route exact path="/cocina">
-          <SearchKitchen />
-        </Route>
-      </Switch>
+      <BrowserRouter>
+        <Route path="/inicio" exact component={Home} />
+        <Route path="/cocina" exact component={Search} />
+        <Route path="/mobiliario" component={Search} />
+        <Route path="/otros" component={Search} />
+        <Route path="/manteleria" component={Search} />
+        <Route path="/rentas" component={Search} />
+      </BrowserRouter>
     </Container>
   );
 };
-
-export default Content;
+export default withRouter(connector(Content));
