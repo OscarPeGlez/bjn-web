@@ -1,21 +1,18 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { API_ENDPOINT } from '../environment';
-import { Product, ResponseProducts } from '../types/products';
+import { Rent, ResponseRents } from '../types/rent';
 import { axios } from '../utils/axios';
 import { fromRequest } from '../utils/observable';
-import { parseProductsKitchen } from '../utils/parser';
+import { parseRents } from '../utils/parser';
 
-export const getProductsKitchenAPI = (plb: string): Observable<Product[]> => {
-  const url = `${API_ENDPOINT}/productsKitchen`;
+export const getRentsAPI = (): Observable<Rent[]> => {
+  const url = `${API_ENDPOINT}/rents`;
   console.log(url);
-  return fromRequest<ResponseProducts>(
+  return fromRequest<ResponseRents>(
     {
       url,
       method: 'GET',
-      params: {
-        plb,
-      },
     },
     axios,
   ).pipe(
@@ -28,7 +25,7 @@ export const getProductsKitchenAPI = (plb: string): Observable<Product[]> => {
 
         throw error;
       }
-      return response.data.ResultadoProductos.map(value => parseProductsKitchen(value));
+      return response.data.ResultadoRentas.map(value => parseRents(value));
     }),
   );
 };

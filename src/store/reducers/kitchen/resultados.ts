@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { RespuestaError } from '../../../types/compartido/response';
-import { ProductKitchen } from '../../../types/kitchen';
+import { Product } from '../../../types/products';
 import {
   getProductsKitchenError,
   getProductsKitchenExito,
@@ -11,7 +11,7 @@ type SugerenciasState = {
   cargando: boolean;
   cargado: boolean;
   error: RespuestaError | null;
-  resultados: ProductKitchen[];
+  resultados: Product[];
 };
 
 const estadoInicial: SugerenciasState = {

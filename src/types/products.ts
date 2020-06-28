@@ -1,21 +1,21 @@
-export type ProductKitchen = {
+export type Product = {
   sku: number;
   name: string;
   stock: number;
   imagenUrl: string;
 };
 
-export type ProductKitchenDTO = {
+export type ProductDTO = {
   Sku: number;
   Nombre: string;
   Inventario: number;
   ImagenURL: string;
 };
-export type ResponseProductsKitchen = {
+export type ResponseProducts = {
   DescripcionError: any;
   Error: boolean;
   MensajeTecnico: null;
-  ResultadoProductos: ProductKitchenDTO[];
+  ResultadoProductos: ProductDTO[];
   TotalPaginas: number;
   TotalRegistros: number;
 };

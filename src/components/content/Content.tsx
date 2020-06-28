@@ -5,6 +5,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Route, RouteComponentProps, withRouter } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import Home from '../../screens/Home';
+import Rents from '../../screens/Rents';
 import Search from '../../screens/Search';
 import { RootState } from '../../store/reducers';
 import NavBar from './Navbar';
@@ -28,13 +29,14 @@ const Content: FC<Props> = props => {
   return (
     <Container fluid className={classNames('content', { 'is-open': isOpen })}>
       <NavBar toggle={toggle} />
+      <div className="padding-topbar-xs hidden-lg hidden-md" />
       <BrowserRouter>
         <Route path="/inicio" exact component={Home} />
         <Route path="/cocina" exact component={Search} />
         <Route path="/mobiliario" component={Search} />
         <Route path="/otros" component={Search} />
         <Route path="/manteleria" component={Search} />
-        <Route path="/rentas" component={Search} />
+        <Route path="/rentas" component={Rents} />
       </BrowserRouter>
     </Container>
   );

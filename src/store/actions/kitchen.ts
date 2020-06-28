@@ -4,7 +4,7 @@ import {
   createAction,
 } from '@reduxjs/toolkit';
 import { RespuestaError } from '../../types/compartido/response';
-import { ProductKitchen } from '../../types/kitchen';
+import { Product } from '../../types/products';
 import { withPayloadType } from '../util';
 
 export const getProductsKitchen: ActionCreatorWithoutPayload = createAction(
@@ -13,9 +13,9 @@ export const getProductsKitchen: ActionCreatorWithoutPayload = createAction(
 
 export type GetProductsKitchen = ReturnType<typeof getProductsKitchen>;
 
-export const getProductsKitchenExito: ActionCreatorWithPayload<ProductKitchen[]> = createAction(
+export const getProductsKitchenExito: ActionCreatorWithPayload<Product[]> = createAction(
   '[COCINA] Obtener Inventario Cocina Exito',
-  withPayloadType<ProductKitchen[]>(),
+  withPayloadType<Product[]>(),
 );
 
 export type GetProductsKitchenExito = ReturnType<typeof getProductsKitchenExito>;

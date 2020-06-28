@@ -6,12 +6,12 @@ import { Form, InputGroup, ListGroup, OverlayTrigger, TabPane, Tooltip } from 'r
 import Image from 'react-bootstrap/Image';
 import { connect, ConnectedProps } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
-import catalogIcon from '../assets/catext.svg';
-import { updateSearchProductKitchen } from '../store/actions/kitchen';
-import { RootState } from '../store/reducers';
-import { ProductKitchen } from '../types/kitchen';
-import { convertirUpperLowerCase } from '../utils';
-import { trimAllWhitespace } from '../utils/string';
+import catalogIcon from '../../assets/catext.svg';
+import { updateSearchProductKitchen } from '../../store/actions/kitchen';
+import { RootState } from '../../store/reducers';
+import { Product } from '../../types/products';
+import { convertirUpperLowerCase } from '../../utils';
+import { trimAllWhitespace } from '../../utils/string';
 
 const connector = connect(
   (state: RootState) => ({
@@ -72,7 +72,7 @@ const FormInputCustom: FC<Props> = props => {
     );
   };
 
-  const crearSugerencia = (producto: ProductKitchen, key: number): JSX.Element => {
+  const crearSugerencia = (producto: Product, key: number): JSX.Element => {
     const { name, stock, sku, imagenUrl } = producto;
 
     // const esCatalogoExtendido = tipo === TipoProducto.CATALOGO_EXTENDIDO;

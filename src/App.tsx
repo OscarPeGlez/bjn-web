@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
-import './App.css';
 import Content from './components/content/Content';
 import SideBar from './components/sidebar/SideBar';
 import { RootState } from './store/reducers';
