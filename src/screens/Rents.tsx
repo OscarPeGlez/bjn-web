@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
-import { Card, Col, Container, Row, Form } from 'react-bootstrap';
+import React, { FC, useState } from 'react';
+import { Card, Col, Container, Row } from 'react-bootstrap';
 import { connect, ConnectedProps } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
+import ModalInfo from '../components/modals/ModalInfo';
 import Loader from '../components/shared/Loader';
 import { getRents } from '../store/actions/rents';
 import { RootState } from '../store/reducers';
@@ -25,9 +26,24 @@ type ReduxProps = ConnectedProps<typeof connector>;
 type Props = RouteComponentProps & ReduxProps;
 
 const Rents: FC<Props> = props => {
-  const { rents, consultRents, error, cargando } = props;
+  const { rents, consultRents, error } = props;
+  const [showModal, setShowModal] = useState(false);
+  const [objectRent, setOnjectRent] = useState({});
 
   if (!rents.length && !error) consultRents();
+
+  const modalInfo = (rent: Rent): void => {
+    setOnjectRent(rent);
+    setShowModal(!showModal);
+  };
+
+  const confirmation = (): void => {
+    setShowModal(!showModal);
+  };
+
+  const noConfirmation = (): void => {
+    setShowModal(!showModal);
+  };
 
   const tarjetaRenta = (rent: Rent): JSX.Element => {
     const {
@@ -38,11 +54,6 @@ const Rents: FC<Props> = props => {
       id,
     } = rent;
 
-    const [ModalInfo, setModalInfo] = useState(false);
-    const openModalInfo = (rent: Rent) => {
-      console.log(rent);
-      setModalInfo(!ModalInfo);
-    };
     type BgType =
       | 'primary'
       | 'secondary'
@@ -69,11 +80,7 @@ const Rents: FC<Props> = props => {
     }
 
     return (
-      <Card
-        bg={colorCard}
-        className="card-product shadow-none"
-        onClick={() => console.log('sdfsdsd')}
-      >
+      <Card bg={colorCard} className="card-product shadow-none" onClick={() => modalInfo(rent)}>
         <Card.Header className="border-0 text-center font-weight-bold" as="h5">
           {convertirUpperLowerCase(rentador)}
         </Card.Header>
@@ -175,6 +182,7 @@ const Rents: FC<Props> = props => {
 
   return (
     <>
+      <ModalInfo rent={objectRent} show={showModal} confirmation={confirmation} noConfirmation={noConfirmation} />
       <section className="py-2">
         <Container>
           <Row>
