@@ -1,6 +1,6 @@
 import { ErrorMessage, Form as FormikForm, Formik } from 'formik';
 import React, { FC } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, Modal, Col } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { soloCaracteresNombre, soloDigitos } from '../../utils/string';
 import FileUpload from '../FileUpload';
@@ -19,13 +19,12 @@ type ModalInfoProps = {
 
 const ModalInfo: FC<ModalInfoProps> = props => {
   const { rent, show, confirmation, noConfirmation } = props;
-  console.log(rent);
 
   return (
     <>
       <Modal show={show} onHide={noConfirmation}>
         <Modal.Header className="text-light bg-dark">
-          <Modal.Title>Editar Articulo</Modal.Title>
+          <Modal.Title>Editar Renta</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div>
@@ -37,7 +36,17 @@ const ModalInfo: FC<ModalInfoProps> = props => {
               {({ touched, errors, values, setFieldValue, handleBlur }) => (
                 <FormikForm>
                   <Form.Group>
-                    <Form.Label>Nombre del Articulo</Form.Label>
+                    <Form.Label>Nombre de pagador</Form.Label>
+                    <Form.Control
+                      maxLength={50}
+                      onBlur={handleBlur}
+                      type="text"
+                      value={rent.rentador}
+                      readOnly
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Nombre de quien recogio</Form.Label>
                     <Form.Control
                       maxLength={50}
                       onBlur={handleBlur}
@@ -46,7 +55,6 @@ const ModalInfo: FC<ModalInfoProps> = props => {
                       }}
                       isInvalid={!!errors.name && touched.name}
                       type="text"
-                      placeholder="Nombre del Articulo"
                       className={touched.name && errors.name ? 'is-invalid' : ''}
                       value={values.name}
                       name="name"
@@ -55,28 +63,49 @@ const ModalInfo: FC<ModalInfoProps> = props => {
                       {msg => <Form.Control.Feedback type="invalid">{msg}</Form.Control.Feedback>}
                     </ErrorMessage>
                   </Form.Group>
+
+                  <Form.Row>
+                    <Col>
+                      <Form.Label>Suma cobrada</Form.Label>
+                      <Form.Control
+                        maxLength={50}
+                        onBlur={handleBlur}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setFieldValue('stock', soloDigitos(e.target.value))
+                        }
+                        type="number"
+                        className={touched.stock && errors.stock ? 'is-invalid' : ''}
+                        name="stock"
+                        isInvalid={!!errors.stock && touched.stock}
+                      />
+                    </Col>
+                    <Col>
+                      <Form.Label>Resta por cobrar</Form.Label>
+                      <Form.Control
+                        onBlur={handleBlur}
+                        type="number"
+                        value={rent.detalleRenta.restaPorCobrar}
+                        readOnly
+                      />
+                    </Col>
+                    <Col>
+                      <Form.Label>Estatus</Form.Label>
+                      <Form.Control as="select">
+                        <option>Recuperada</option>
+                        <option>Sin recuperar</option>
+                      </Form.Control>
+                    </Col>
+                  </Form.Row>
                   <Form.Group>
-                    <Form.Label>Cantidad en stock</Form.Label>
+                    <Form.Label>Dirección</Form.Label>
                     <Form.Control
+                      as="textarea"
                       maxLength={50}
                       onBlur={handleBlur}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setFieldValue('stock', soloDigitos(e.target.value))
-                      }
-                      type="number"
-                      placeholder="Cantidad en stock"
-                      className={touched.stock && errors.stock ? 'is-invalid' : ''}
-                      value={values.stock}
-                      name="stock"
-                      isInvalid={!!errors.stock && touched.stock}
+                      type="text"
+                      value={rent.detalleRenta.direccion}
+                      readOnly
                     />
-                    <ErrorMessage name="stock">
-                      {msg => <Form.Control.Feedback type="invalid">{msg}</Form.Control.Feedback>}
-                    </ErrorMessage>
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Subir imagen</Form.Label>
-                    <FileUpload />
                   </Form.Group>
                 </FormikForm>
               )}
@@ -85,15 +114,15 @@ const ModalInfo: FC<ModalInfoProps> = props => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="outline-danger" onClick={noConfirmation}>
-            Regresar
+            Cancelar
           </Button>
-          <Button variant="outline-secondary" onClick={confirmation}>
-            Continuar
+          <Button variant="outline-info" onClick={confirmation}>
+            Guardar
           </Button>
         </Modal.Footer>
       </Modal>
     </>
   );
-}
+};
 
 export default ModalInfo;

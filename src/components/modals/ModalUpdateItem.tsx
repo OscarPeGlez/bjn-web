@@ -1,6 +1,6 @@
 import { ErrorMessage, Form as FormikForm, Formik } from 'formik';
 import React, { FC, useState } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, Modal, FormGroup, Col } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { soloCaracteresNombre, soloDigitos } from '../../utils/string';
 import FileUpload from '../FileUpload';
@@ -55,25 +55,40 @@ const ModalUpdateItem: FC<ModalProps> = props => {
                       {msg => <Form.Control.Feedback type="invalid">{msg}</Form.Control.Feedback>}
                     </ErrorMessage>
                   </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Cantidad en stock</Form.Label>
-                    <Form.Control
-                      maxLength={50}
-                      onBlur={handleBlur}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setFieldValue('stock', soloDigitos(e.target.value))
-                      }
-                      type="number"
-                      placeholder="Cantidad en stock"
-                      className={touched.stock && errors.stock ? 'is-invalid' : ''}
-                      value={values.stock}
-                      name="stock"
-                      isInvalid={!!errors.stock && touched.stock}
-                    />
-                    <ErrorMessage name="stock">
-                      {msg => <Form.Control.Feedback type="invalid">{msg}</Form.Control.Feedback>}
-                    </ErrorMessage>
-                  </Form.Group>
+                  <Form.Row>
+                    <Col>
+                      <Form.Label>Cantidad en stock</Form.Label>
+                      <Form.Control
+                        maxLength={50}
+                        onBlur={handleBlur}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setFieldValue('stock', soloDigitos(e.target.value))
+                        }
+                        type="number"
+                        placeholder="Cantidad en stock"
+                        className={touched.stock && errors.stock ? 'is-invalid' : ''}
+                        value={values.stock}
+                        name="stock"
+                        isInvalid={!!errors.stock && touched.stock}
+                      />
+                      <ErrorMessage name="stock">
+                        {msg => <Form.Control.Feedback type="invalid">{msg}</Form.Control.Feedback>}
+                      </ErrorMessage>
+                    </Col>
+                    <Col>
+                      <Form.Label>Tipo de producto</Form.Label>
+                      <Form.Control as="select">
+                        <option>Cocina</option>
+                        <option>Manteleria</option>
+                        <option>Mobiliario</option>
+                        <option>Otros</option>
+                      </Form.Control>
+                    </Col>
+                  </Form.Row>
+                  <FormGroup>
+                    <Form.Label>Codigo SKU</Form.Label>
+                    <Form.Control type="number" />
+                  </FormGroup>
                   <Form.Group>
                     <Form.Label>Subir imagen</Form.Label>
                     <FileUpload />
@@ -85,10 +100,10 @@ const ModalUpdateItem: FC<ModalProps> = props => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="outline-danger" onClick={noConfirmation}>
-            Regresar
+            Cancelar
           </Button>
           <Button variant="outline-secondary" onClick={confirmation}>
-            Continuar
+            Guardar
           </Button>
         </Modal.Footer>
       </Modal>

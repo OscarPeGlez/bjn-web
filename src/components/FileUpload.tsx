@@ -37,6 +37,7 @@ const FileUpload: FC = () => {
           className="custom-file-input"
           id="image"
           data-browse="Cargar"
+          accept="image/*"
         />
         <Form.Label className="custom-file-label" htmlFor="image">
           Seleccionar Archivo

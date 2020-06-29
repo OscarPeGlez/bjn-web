@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, Modal, Col } from 'react-bootstrap';
 
 const AddRent: FC = () => {
   const [show, setShow] = useState(false);
@@ -14,24 +14,38 @@ const AddRent: FC = () => {
       </Button>
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal</Modal.Title>
+        <Modal.Header className="text-light bg-dark">
+          <Modal.Title>Añadir Renta</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Label>Nombre</Form.Label>
-          <Form.Control type="date" />
-          <Form.Label>Producto</Form.Label>
-          <Form.Control as="select">
-            <option>Cocina</option>
-            <option>Manteleria</option>
-            <option>Otros</option>
-            <option>4</option>
-            <option>5</option>
-          </Form.Control>
-          <Form.Label>Cantidad</Form.Label>
-          <Form.Control type="number" />
-          <Form.Label>Codigo</Form.Label>
-          <Form.Control type="number" />
+          <Form.Row>
+            <Col>
+              <Form.Label>Fecha esperada de entrega</Form.Label>
+              <Form.Control type="date" />
+            </Col>
+            <Col>
+              <Form.Label>Fecha esperada de devolución</Form.Label>
+              <Form.Control type="date" />
+            </Col>
+          </Form.Row>
+          <Form.Row>
+            <Col>
+              <Form.Label>Total de renta</Form.Label>
+              <Form.Control type="number" />
+            </Col>
+            <Col>
+              <Form.Label>Anticipo</Form.Label>
+              <Form.Control type="number" />
+            </Col>
+          </Form.Row>
+          <Form.Group>
+            <Form.Label>Pagador</Form.Label>
+            <Form.Control maxLength={50} type="text" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Dirección</Form.Label>
+            <Form.Control maxLength={50} type="text" />
+          </Form.Group>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="outline-danger" onClick={handleClose}>
