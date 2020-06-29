@@ -84,34 +84,41 @@ const Rents: FC<Props> = props => {
     }
 
     return (
-      <Card bg={colorCard} className="card-product shadow-none" onClick={() => modalInfo(rent)}>
-        <Card.Header className="border-0 text-center font-weight-bold" as="h5">
-          {convertirUpperLowerCase(rentador)}
-        </Card.Header>
-        <Card.Body className="text-center">
-          <Card.Title>Fecha entrada</Card.Title>
-          <Card.Text>{fechaEntrada}</Card.Text>
-          <Card.Title>Fecha salida</Card.Title>
-          <Card.Text>{fechaSalida}</Card.Text>
-          {/* <div className="pb-2">
+      <>
+        <Card
+          bg={colorCard}
+          className="card-product shadow-none"
+          onClick={(): void => modalInfo(rent)}
+          style={{ cursor: 'pointer' }}
+        >
+          <Card.Header className="border-0 text-center font-weight-bold" as="h5">
+            {convertirUpperLowerCase(rentador)}
+          </Card.Header>
+          <Card.Body className="text-center">
+            <Card.Title>Fecha entrada</Card.Title>
+            <Card.Text>{fechaEntrada}</Card.Text>
+            <Card.Title>Fecha salida</Card.Title>
+            <Card.Text>{fechaSalida}</Card.Text>
+            {/* <div className="pb-2">
             <small>
               <del>{1200}</del>
-            </small>
+              </small>
           </div> */}
-          {/* <Row>
+            {/* <Row>
             <Col xs={7} sm={7} md={7} lg={7} xl={7} className="text-left">
-              <div>
+            <div>
                 <h4>imagen</h4>
                 <Image alt="placeholder" src={creditIcon} fluid style={{ width: 200 }} />
               </div>
               <p>Pago puntual a {12} semanas</p>
             </Col>
             <Col xs={5} sm={5} md={5} lg={5} xl={5} className="text-right">
-              <small>{1500}</small>
+            <small>{1500}</small>
             </Col>
           </Row> */}
-        </Card.Body>
-      </Card>
+          </Card.Body>
+        </Card>
+      </>
     );
   };
 
