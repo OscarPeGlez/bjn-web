@@ -1,6 +1,16 @@
 import parse from 'html-react-parser';
 import React, { FC, useState } from 'react';
-import { Form, InputGroup, ListGroup, OverlayTrigger, TabPane, Tooltip } from 'react-bootstrap';
+import {
+  Col,
+  Form,
+  InputGroup,
+  ListGroup,
+  OverlayTrigger,
+  Row,
+
+  TabPane,
+  Tooltip
+} from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import { connect, ConnectedProps } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
@@ -14,11 +24,14 @@ import { convertirUpperLowerCase } from '../../utils';
 import { trimAllWhitespace } from '../../utils/string';
 import ModalDeleteItem from '../modals/ModalDeleteItem';
 import ModalUpdateItem from '../modals/ModalUpdateItem';
+import Loader from '../shared/Loader';
 
 const connector = connect(
   (state: RootState) => ({
     consulta: state.kitechenReducer.consulta,
     productos: state.kitechenReducer.resultados.resultados,
+    cargando: state.kitechenReducer.resultados.cargando,
+    cargado: state.kitechenReducer.resultados.cargado,
   }),
   {
     actualizarConsulta: (search: string) => updateSearchProductKitchen(search),
@@ -29,7 +42,7 @@ type ReduxProps = ConnectedProps<typeof connector>;
 type Props = RouteComponentProps & ReduxProps;
 
 const FormGetProducts: FC<Props> = props => {
-  const { actualizarConsulta, history, consulta, productos } = props;
+  const { actualizarConsulta, history, consulta, productos, cargando } = props;
 
   const [isUpdate, setIsUpdate] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
@@ -64,7 +77,7 @@ const FormGetProducts: FC<Props> = props => {
   const crearSku = (sku: string): JSX.Element => {
     return (
       <h6 className="mb-1 d-block text-limit">
-        SKU:{' '}
+        Id:{' '}
         {parse(
           sku.replace(consultaRegex, value => {
             return `<span class="text-danger mt-2">${value}</span>`;
@@ -132,11 +145,7 @@ const FormGetProducts: FC<Props> = props => {
         <ListGroup.Item>
           <div className="d-flex align-items-center justify-content-between align-items-center">
             <div>
-              <Image
-                alt={name}
-                src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png"
-                style={{ width: 50 }}
-              />
+              <Image alt={name} src={imagenUrl} style={{ width: 50 }} />
             </div>
             <div className="flex-fill pl-3 text-limit">
               {/* desde aqui agregar styles */}
@@ -156,8 +165,28 @@ const FormGetProducts: FC<Props> = props => {
     );
   };
 
-  const crearSugerencias = (): JSX.Element[] | null => {
-    if (!productos || productos.length === 0) return null;
+  const crearSinResultados = (): JSX.Element => {
+    return (
+      <Row className="align-items-center">
+        <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+          <h4 className="py-2">No se encontraron resultados</h4>
+        </Col>
+      </Row>
+    );
+  };
+
+  const crearCargando = (cargando: boolean): JSX.Element => {
+    return (
+      <>
+        <Loader cargando={cargando} />
+      </>
+    );
+  };
+
+  const crearSugerencias = (): JSX.Element | JSX.Element[] => {
+    const { cargado, cargando } = props;
+    if (cargando) return crearCargando(cargando);
+    if ((cargado && !productos) || (cargado && productos.length === 0)) return crearSinResultados();
     return productos.map((producto, indice) => crearSugerencia(producto, indice));
   };
 

@@ -2,7 +2,6 @@ import { Epic } from 'redux-observable';
 import { of } from 'rxjs';
 import { catchError, debounceTime, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { getProductsKitchenAPI } from '../../../api/kitchen';
-import { trimAllWhitespace } from '../../../utils/string';
 import {
   GetProductsKitchen,
   getProductsKitchen,
@@ -26,8 +25,8 @@ export const actualizarConsultaProductosEpic$: Epic<
 > = action$ =>
   action$.pipe(
     filter(updateSearchProductKitchen.match),
-    filter(action => trimAllWhitespace(action.payload).length >= 2),
-    debounceTime(300),
+    // filter(action => trimAllWhitespace(action.payload).length >= 2),
+    debounceTime(1400),
     map(() => getProductsKitchen()),
   );
 
