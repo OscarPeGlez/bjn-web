@@ -1,11 +1,10 @@
 import {
-  faBriefcase,
-
-  faHome,
-  faImage,
-  faPaperPlane,
-  faQuestion,
-  faTimes
+  faSquare,
+  faTruckMoving,
+  faWineBottle,
+  faBlender,
+  faChair,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -21,7 +20,9 @@ type SideBarProps = {
 type Props = RouteComponentProps & SideBarProps;
 
 const SideBar: FC<Props> = props => {
-  const { isOpen, toggle } = props;
+  const { isOpen, toggle, location } = props;
+  console.log(location);
+
   return (
     <div className={classNames('sidebar', { 'is-open': isOpen })}>
       <div className="sidebar-header">
@@ -32,39 +33,38 @@ const SideBar: FC<Props> = props => {
       </div>
 
       <Nav className="flex-column pt-2 mr-auto">
-        <p className="ml-3">MENU</p>
-
+        <p className="ml-3 font-weight-bold">Menu</p>
         <Nav.Item>
           <Nav.Link href="/cocina">
-            <FontAwesomeIcon icon={faHome} className="mr-2" />
+            <FontAwesomeIcon icon={faBlender} className="mr-2" />
             Cocina
           </Nav.Link>
         </Nav.Item>
 
         <Nav.Item>
           <Nav.Link href="/manteleria">
-            <FontAwesomeIcon icon={faBriefcase} className="mr-2" />
+            <FontAwesomeIcon icon={faSquare} className="mr-2" />
             Manteleria
           </Nav.Link>
         </Nav.Item>
 
         <Nav.Item>
           <Nav.Link href="/mobiliario">
-            <FontAwesomeIcon icon={faImage} className="mr-2" />
+            <FontAwesomeIcon icon={faChair} className="mr-2" />
             Mobiliario
           </Nav.Link>
         </Nav.Item>
 
         <Nav.Item>
           <Nav.Link href="/otros">
-            <FontAwesomeIcon icon={faQuestion} className="mr-2" />
+            <FontAwesomeIcon icon={faWineBottle} className="mr-2" />
             Otros
           </Nav.Link>
         </Nav.Item>
 
         <Nav.Item>
           <Nav.Link href="/rentas">
-            <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
+            <FontAwesomeIcon icon={faTruckMoving} className="mr-2" />
             Rentas
           </Nav.Link>
         </Nav.Item>

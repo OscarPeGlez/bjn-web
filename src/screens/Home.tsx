@@ -16,7 +16,7 @@ const Home: FC = () => {
         </Row>
       </Container>
     </section>
-  )
-}
+  );
+};
 
 export default Home;

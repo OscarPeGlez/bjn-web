@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { FC } from 'react';
 import { Button, Nav, Navbar } from 'react-bootstrap';
 import { RouteComponentProps, withRouter } from 'react-router';
+import AddElement from '../Form/AddElement';
 
 type NavBarProps = {
   toggle: () => void;
@@ -11,7 +12,10 @@ type NavBarProps = {
 type Props = RouteComponentProps & NavBarProps;
 
 const NavBar: FC<Props> = props => {
-  const { toggle } = props;
+  const { toggle, location } = props;
+  const path = location.pathname;
+  console.log(location);
+
   return (
     <Navbar bg="light" className="navbar shadow-sm p-3 mb-5 bg-white rounded" expand>
       <Button variant="outline-info" onClick={toggle}>
@@ -20,10 +24,7 @@ const NavBar: FC<Props> = props => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto" navbar>
-          <Nav.Link href="/cocina">page</Nav.Link>
-          <Nav.Link href="/manteleria">page</Nav.Link>
-          <Nav.Link href="/mobiliario">page</Nav.Link>
-          <Nav.Link href="/otros">page</Nav.Link>
+          {path !== '/404' && <AddElement />}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

@@ -74,7 +74,6 @@ const FormGetProducts: FC<Props> = props => {
     );
   };
 
-
   const crearStock = (sku: string): JSX.Element => {
     return (
       <h6 className="mb-1 d-block text-limit">

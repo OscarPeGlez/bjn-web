@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Card, Col, Container, Row, Form } from 'react-bootstrap';
 import { connect, ConnectedProps } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import Loader from '../components/shared/Loader';
@@ -38,6 +38,11 @@ const Rents: FC<Props> = props => {
       id,
     } = rent;
 
+    const [ModalInfo, setModalInfo] = useState(false);
+    const openModalInfo = (rent: Rent) => {
+      console.log(rent);
+      setModalInfo(!ModalInfo);
+    };
     type BgType =
       | 'primary'
       | 'secondary'
@@ -64,14 +69,19 @@ const Rents: FC<Props> = props => {
     }
 
     return (
-      <Card bg={colorCard} className="card-product shadow-none">
-        <Card.Header className="border-0 text-center">
+      <Card
+        bg={colorCard}
+        className="card-product shadow-none"
+        onClick={() => console.log('sdfsdsd')}
+      >
+        <Card.Header className="border-0 text-center font-weight-bold" as="h5">
           {convertirUpperLowerCase(rentador)}
         </Card.Header>
         <Card.Body className="text-center">
-          <div className="d-flex justify-content-between align-items-center">
-            <p>SKU: {123}</p>
-          </div>
+          <Card.Title>Fecha entrada</Card.Title>
+          <Card.Text>{fechaEntrada}</Card.Text>
+          <Card.Title>Fecha salida</Card.Title>
+          <Card.Text>{fechaSalida}</Card.Text>
           {/* <div className="pb-2">
             <small>
               <del>{1200}</del>
@@ -115,11 +125,11 @@ const Rents: FC<Props> = props => {
 
   const crearContenidoPrincipal = (): JSX.Element => {
     return (
-      <Card bg="secondary" className="shadow-none border-0">
+      <Card className="shadow-none border-0">
         <Card.Header className="border-0">
           <Row className="align-items-center">
             <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-              <h4 className="py-2">Resultados de las Rentas</h4>
+              <h4 className="py-2">Resultados de las rentas</h4>
             </Col>
           </Row>
         </Card.Header>

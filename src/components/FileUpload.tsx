@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { Form, Image } from 'react-bootstrap';
 import { storage } from '../services/firebase';
 
 const FileUpload: FC = () => {
@@ -29,13 +30,20 @@ const FileUpload: FC = () => {
   };
 
   return (
-    <div>
-      <input type="file" onChange={handledUpload} />
-      <br />
-      <img width={360} src={pictureFile} />
-      <br />
-      <progress value={uploadValue} max={100} />
-    </div>
+    <>
+      <Form.Group className="custom-file">
+        <Form.File
+          onChange={handledUpload}
+          className="custom-file-input"
+          id="image"
+          data-browse="Cargar"
+        />
+        <Form.Label className="custom-file-label" htmlFor="image">
+          Seleccionar Archivo
+        </Form.Label>
+      </Form.Group>
+      <Image src={pictureFile} style={{ width: 150, height: 'auto' }} />
+    </>
   );
 };
 
