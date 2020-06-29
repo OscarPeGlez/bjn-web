@@ -4,6 +4,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import ModalInfo from '../components/modals/ModalInfo';
 import Loader from '../components/shared/Loader';
+import { decrement } from '../store/actions';
 import { getRents } from '../store/actions/rents';
 import { RootState } from '../store/reducers';
 import { Rent, StatusEnum } from '../types/rent';
@@ -11,6 +12,7 @@ import { convertirUpperLowerCase } from '../utils/index';
 
 const connector = connect(
   (state: RootState) => ({
+    counter: state.countReducer.count,
     rents: state.rentsReducer.resultados,
     loadder: state.rentsReducer.cargado,
     error: state.rentsReducer.error,
@@ -18,6 +20,7 @@ const connector = connect(
   }),
   {
     consultRents: () => getRents(),
+    decrement: () => decrement(),
   },
 );
 
@@ -26,10 +29,11 @@ type ReduxProps = ConnectedProps<typeof connector>;
 type Props = RouteComponentProps & ReduxProps;
 
 const Rents: FC<Props> = props => {
-  const { rents, consultRents, error } = props;
+  const { rents, consultRents, error, decrement, counter } = props;
   const [showModal, setShowModal] = useState(false);
   const [objectRent, setOnjectRent] = useState({});
 
+  if (counter !== 0) decrement();
   if (!rents.length && !error) consultRents();
 
   const modalInfo = (rent: Rent): void => {
@@ -182,7 +186,12 @@ const Rents: FC<Props> = props => {
 
   return (
     <>
-      <ModalInfo rent={objectRent} show={showModal} confirmation={confirmation} noConfirmation={noConfirmation} />
+      <ModalInfo
+        rent={objectRent}
+        show={showModal}
+        confirmation={confirmation}
+        noConfirmation={noConfirmation}
+      />
       <section className="py-2">
         <Container>
           <Row>

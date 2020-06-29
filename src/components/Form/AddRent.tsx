@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Form, Modal } from 'react-bootstrap';
 
-const AddItems: FC = () => {
+const AddRent: FC = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -46,4 +46,4 @@ const AddItems: FC = () => {
   );
 };
 
-export default AddItems;
+export default AddRent;

@@ -6,7 +6,7 @@ type CounterReducer = {
 };
 
 const initialState: CounterReducer = {
-  count: 0,
+  count: 1,
 };
 
 export default createReducer<CounterReducer>(initialState, builder => {
