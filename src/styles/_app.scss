@@ -37,6 +37,8 @@ a:focus {
 .sidebar.is-open {
   margin-left: 0;
   transition: 0.5s;
+  position: fixed;
+  height: 100%;
 }
 
 .sidebar-header {
@@ -110,13 +112,20 @@ li a.dropdown-toggle::after {
   height: 100vh;
 }
 
+.content-open {
+  padding: 20px;
+  margin-left: 250px;
+  height: 100vh;
+  transition: all 0.5s;
+}
+
 @media only screen and (max-width: 575.98px) {
   body {
     overflow: hidden;
   }
 
   .content.is-open {
-    /*margin-left: 100%;*/
+    // margin-left: 250%;
     display: none;
     transition: all 0.5s;
   }

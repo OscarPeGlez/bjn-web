@@ -25,9 +25,9 @@ type Props = RouteComponentProps & ContentProps & ReduxProps;
 
 const Content: FC<Props> = props => {
   const { isOpen, toggle } = props;
-
+  const contenClass = isOpen ? 'content-open' : 'content';
   return (
-    <Container fluid className={classNames('content', { 'is-open': isOpen })}>
+    <Container fluid className={classNames(contenClass, { 'is-open': isOpen })}>
       <NavBar toggle={toggle} />
       <div className="padding-topbar-xs hidden-lg hidden-md" />
       <BrowserRouter>
