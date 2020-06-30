@@ -1,13 +1,13 @@
 import { ErrorMessage, Form as FormikForm, Formik } from 'formik';
 import React, { FC } from 'react';
-import { Button, Form, Modal, Col } from 'react-bootstrap';
+import { Button, Col, Form, Modal } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { soloCaracteresNombre, soloDigitos } from '../../utils/string';
-import FileUpload from '../FileUpload';
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required('Nombre del articulo requerido'),
-  stock: Yup.string().required('Cantidad en Stock requerida'),
+  name: Yup.string(),
+  stock: Yup.string(),
+  sum: Yup.string(),
 });
 
 type ModalInfoProps = {
@@ -29,7 +29,7 @@ const ModalInfo: FC<ModalInfoProps> = props => {
         <Modal.Body>
           <div>
             <Formik
-              initialValues={{ name: '', stock: '' }}
+              initialValues={{ name: '', stock: '', sum: ' ' }}
               onSubmit={values => confirmation()}
               validationSchema={validationSchema}
             >
@@ -56,8 +56,9 @@ const ModalInfo: FC<ModalInfoProps> = props => {
                       isInvalid={!!errors.name && touched.name}
                       type="text"
                       className={touched.name && errors.name ? 'is-invalid' : ''}
-                      value={values.name}
+                      value={rent.detalleRenta.responsable || values.name}
                       name="name"
+                      readOnly={rent.detalleRenta.responsable || false}
                     />
                     <ErrorMessage name="name">
                       {msg => <Form.Control.Feedback type="invalid">{msg}</Form.Control.Feedback>}
@@ -71,12 +72,12 @@ const ModalInfo: FC<ModalInfoProps> = props => {
                         maxLength={50}
                         onBlur={handleBlur}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setFieldValue('stock', soloDigitos(e.target.value))
+                          setFieldValue('sum', soloDigitos(e.target.value))
                         }
-                        type="number"
-                        className={touched.stock && errors.stock ? 'is-invalid' : ''}
-                        name="stock"
-                        isInvalid={!!errors.stock && touched.stock}
+                        type="text"
+                        className={touched.sum && errors.sum ? 'is-invalid' : ''}
+                        name="sum"
+                        isInvalid={!!errors.sum && touched.sum}
                       />
                     </Col>
                     <Col>
@@ -84,7 +85,7 @@ const ModalInfo: FC<ModalInfoProps> = props => {
                       <Form.Control
                         onBlur={handleBlur}
                         type="number"
-                        value={rent.detalleRenta.restaPorCobrar}
+                        value={rent.detalleRenta.totalDeRenta - rent.detalleRenta.sumaCobrada}
                         readOnly
                       />
                     </Col>

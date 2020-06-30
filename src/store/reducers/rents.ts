@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { RespuestaError } from '../../types/compartido/response';
 import { Rent } from '../../types/rent';
-import { getRents, getRentsError, getRentsExito } from '../actions/rents';
+import { cleanRents, getRents, getRentsError, getRentsExito } from '../actions/rents';
 
 type RentsReducer = {
   cargando: boolean;
@@ -32,5 +32,10 @@ export default createReducer<RentsReducer>(initialState, builder => {
       state.resultados = [];
       state.cargado = false;
       state.error = action.payload;
+    })
+    .addCase(cleanRents, state => {
+      state.cargando = false;
+      state.resultados = [];
+      state.error = null;
     });
 });

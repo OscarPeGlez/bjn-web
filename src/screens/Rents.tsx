@@ -2,10 +2,11 @@ import React, { FC, useState } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { connect, ConnectedProps } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
+import Swal from 'sweetalert2';
 import ModalInfo from '../components/modals/ModalInfo';
 import Loader from '../components/shared/Loader';
 import { decrement } from '../store/actions';
-import { getRents } from '../store/actions/rents';
+import { cleanRents, getRents } from '../store/actions/rents';
 import { RootState } from '../store/reducers';
 import { Rent, StatusEnum } from '../types/rent';
 import { convertirUpperLowerCase } from '../utils/index';
@@ -21,6 +22,7 @@ const connector = connect(
   {
     consultRents: () => getRents(),
     decrement: () => decrement(),
+    limpiarRentas: () => cleanRents(),
   },
 );
 
@@ -29,7 +31,7 @@ type ReduxProps = ConnectedProps<typeof connector>;
 type Props = RouteComponentProps & ReduxProps;
 
 const Rents: FC<Props> = props => {
-  const { rents, consultRents, error, decrement, counter } = props;
+  const { rents, consultRents, error, decrement, counter, limpiarRentas } = props;
   const [showModal, setShowModal] = useState(false);
   const [objectRent, setOnjectRent] = useState({});
 
@@ -43,6 +45,17 @@ const Rents: FC<Props> = props => {
 
   const confirmation = (): void => {
     setShowModal(!showModal);
+    Swal.fire({
+      text: 'Renta Guardada',
+      icon: 'success',
+      timer: 3000,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      showConfirmButton: false,
+      showCancelButton: false,
+    }).then(() => {
+      limpiarRentas();
+    });
   };
 
   const noConfirmation = (): void => {
@@ -55,7 +68,6 @@ const Rents: FC<Props> = props => {
       detalleRenta: { status },
       fechaEntrada,
       fechaSalida,
-      id,
     } = rent;
 
     type BgType =
@@ -99,23 +111,6 @@ const Rents: FC<Props> = props => {
             <Card.Text>{fechaEntrada}</Card.Text>
             <Card.Title>Fecha salida</Card.Title>
             <Card.Text>{fechaSalida}</Card.Text>
-            {/* <div className="pb-2">
-            <small>
-              <del>{1200}</del>
-              </small>
-          </div> */}
-            {/* <Row>
-            <Col xs={7} sm={7} md={7} lg={7} xl={7} className="text-left">
-            <div>
-                <h4>imagen</h4>
-                <Image alt="placeholder" src={creditIcon} fluid style={{ width: 200 }} />
-              </div>
-              <p>Pago puntual a {12} semanas</p>
-            </Col>
-            <Col xs={5} sm={5} md={5} lg={5} xl={5} className="text-right">
-            <small>{1500}</small>
-            </Col>
-          </Row> */}
           </Card.Body>
         </Card>
       </>
@@ -154,7 +149,6 @@ const Rents: FC<Props> = props => {
         <Card.Body>
           <Row>{crearTarjetas()}</Row>
         </Card.Body>
-        {/* <div className="visible-xxs clearfix pb-4" /> */}
       </Card>
     );
   };

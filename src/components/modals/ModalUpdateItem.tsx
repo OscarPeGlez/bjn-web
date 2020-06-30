@@ -1,14 +1,15 @@
 import { ErrorMessage, Form as FormikForm, Formik } from 'formik';
-import React, { FC, useState } from 'react';
-import { Button, Form, Modal, FormGroup, Col } from 'react-bootstrap';
+import React, { FC } from 'react';
+import { Button, Col, Form, FormGroup, Modal } from 'react-bootstrap';
 import * as Yup from 'yup';
-import { soloCaracteresNombre, soloDigitos } from '../../utils/string';
+import { soloDigitos } from '../../utils/string';
 import FileUpload from '../FileUpload';
 
 type ModalProps = {
   show: boolean;
   confirmation: () => void;
   noConfirmation: () => void;
+  product: { name: string; sku: number; url: string };
 };
 
 const validationSchema = Yup.object().shape({
@@ -17,9 +18,12 @@ const validationSchema = Yup.object().shape({
 });
 
 const ModalUpdateItem: FC<ModalProps> = props => {
-  const { confirmation, noConfirmation, show } = props;
-
-  const [valid, setValid] = useState(true);
+  const {
+    confirmation,
+    noConfirmation,
+    show,
+    product: { name, sku, url },
+  } = props;
 
   return (
     <>
@@ -38,19 +42,7 @@ const ModalUpdateItem: FC<ModalProps> = props => {
                 <FormikForm>
                   <Form.Group>
                     <Form.Label>Nombre del Articulo</Form.Label>
-                    <Form.Control
-                      maxLength={50}
-                      onBlur={handleBlur}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        setFieldValue('name', soloCaracteresNombre(e.target.value.toUpperCase()));
-                      }}
-                      isInvalid={!!errors.name && touched.name}
-                      type="text"
-                      placeholder="Nombre del Articulo"
-                      className={touched.name && errors.name ? 'is-invalid' : ''}
-                      value={values.name}
-                      name="name"
-                    />
+                    <Form.Control type="text" value={name} name="name" readOnly />
                     <ErrorMessage name="name">
                       {msg => <Form.Control.Feedback type="invalid">{msg}</Form.Control.Feedback>}
                     </ErrorMessage>
@@ -86,12 +78,12 @@ const ModalUpdateItem: FC<ModalProps> = props => {
                     </Col>
                   </Form.Row>
                   <FormGroup>
-                    <Form.Label>Codigo SKU</Form.Label>
-                    <Form.Control type="number" />
+                    <Form.Label>Codigo identificacion</Form.Label>
+                    <Form.Control type="text" value={sku} name="sku" readOnly />
                   </FormGroup>
                   <Form.Group>
                     <Form.Label>Subir imagen</Form.Label>
-                    <FileUpload />
+                    <FileUpload urlFile={url} />
                   </Form.Group>
                 </FormikForm>
               )}
