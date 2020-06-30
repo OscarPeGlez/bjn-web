@@ -1,21 +1,31 @@
 import React, { FC } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row, Image, Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import imageUrl from '../assets/jn-logo.svg';
 
 const Home: FC = () => {
+  const history = useHistory();
+
+  const routeChange = () => {
+    let path = `/cocina`;
+    history.push(path);
+  };
+
   return (
-    <section className="slice">
+    <>
       <Container>
-        <Row className="justify-content-center">
-          <Col lg={10}>
-            <Row className="justify-content-between align-items-center">
-              <Col lg={12} md={12}>
-                <h1>Home</h1>
-              </Col>
-            </Row>
+        <Row>
+          <Col style={{ display: 'block', textAlign: 'center' }}>
+            <Button variant="warning" onClick={routeChange}>
+              Ingresar
+            </Button>
+          </Col>
+          <Col>
+            <Image src={imageUrl} fluid />
           </Col>
         </Row>
       </Container>
-    </section>
+    </>
   );
 };
 
