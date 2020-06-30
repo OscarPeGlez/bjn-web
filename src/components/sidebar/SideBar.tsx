@@ -1,10 +1,12 @@
 import {
-  faSquare,
-  faTruckMoving,
-  faWineBottle,
   faBlender,
-  faChair,
-  faTimes,
+  faChair, faSquare,
+
+
+
+
+  faTimes, faTruckMoving,
+  faWineBottle
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -21,7 +23,6 @@ type Props = RouteComponentProps & SideBarProps;
 
 const SideBar: FC<Props> = props => {
   const { isOpen, toggle, location } = props;
-  console.log(location);
 
   return (
     <div className={classNames('sidebar', { 'is-open': isOpen })}>

@@ -1,32 +1,64 @@
 import React, { FC } from 'react';
-import { Col, Container, Row, Image, Button } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { Button, Col, Container, Image, Row } from 'react-bootstrap';
+import { connect, ConnectedProps } from 'react-redux';
+import { RouteComponentProps, withRouter } from 'react-router';
 import imageUrl from '../assets/jn-logo.svg';
+import { decrement, incremenet } from '../store/actions';
+import { RootState } from '../store/reducers';
 
-const Home: FC = () => {
-  const history = useHistory();
+const connector = connect(
+  (state: RootState) => ({
+    counter: state.countReducer.count,
+  }),
+  {
+    increment: () => incremenet(),
+    decrement: () => decrement(),
+  },
+);
 
-  const routeChange = () => {
-    let path = `/cocina`;
-    history.push(path);
+type ReduxProps = ConnectedProps<typeof connector>;
+
+type Props = RouteComponentProps & ReduxProps;
+
+const Home: FC<Props> = props => {
+  const { increment, counter, history, decrement } = props;
+  if (counter === 1) increment();
+
+  const routeChange = (): void => {
+    decrement();
+    history.push('/cocina');
   };
-
   return (
     <>
-      <Container>
-        <Row>
-          <Col style={{ display: 'block', textAlign: 'center' }}>
-            <Button variant="warning" onClick={routeChange}>
-              Ingresar
-            </Button>
-          </Col>
-          <Col>
-            <Image src={imageUrl} fluid />
-          </Col>
-        </Row>
-      </Container>
+      <section className="slice">
+        <Container>
+          <Row className="justify-content-center">
+            <Col lg={10}>
+              <Row className="justify-content-between align-items-center">
+                <Col lg={12} md={12}>
+                  <Container>
+                    <Row>
+                      <Col>
+                        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />{' '}
+                        <br /> <br /> <br /> <br />
+                        <Button variant="warning" onClick={routeChange}>
+                          Ingresar
+                        </Button>
+                      </Col>
+                      <Col>
+                        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+                        <Image src={imageUrl} fluid />
+                      </Col>
+                    </Row>
+                  </Container>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
+      </section>
     </>
   );
 };
 
-export default Home;
+export default withRouter(connector(Home));

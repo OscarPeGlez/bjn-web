@@ -8,7 +8,6 @@ import { parseProductsKitchen } from '../utils/parser';
 
 export const getProductsKitchenAPI = (plb: string): Observable<Product[]> => {
   const url = `${API_ENDPOINT}/productsKitchen`;
-  console.log(url);
   return fromRequest<ResponseProducts>(
     {
       url,

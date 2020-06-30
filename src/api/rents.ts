@@ -8,7 +8,6 @@ import { parseRents } from '../utils/parser';
 
 export const getRentsAPI = (): Observable<Rent[]> => {
   const url = `${API_ENDPOINT}/rents`;
-  console.log(url);
   return fromRequest<ResponseRents>(
     {
       url,

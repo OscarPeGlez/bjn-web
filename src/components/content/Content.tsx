@@ -33,9 +33,9 @@ const Content: FC<Props> = props => {
       <div className="padding-topbar-xs hidden-lg hidden-md" />
       <BrowserRouter>
         <Switch>
-          <Route exact path="/">
+          {/* <Route exact path="/">
             <Redirect to="/home" />
-          </Route>
+          </Route> */}
           <Route path="/home">
             <Home />
           </Route>
