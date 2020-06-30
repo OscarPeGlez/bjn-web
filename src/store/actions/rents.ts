@@ -31,3 +31,7 @@ export const updateSearchRents: ActionCreatorWithPayload<string> = createAction(
 );
 
 export type UpdateSearchRents = ReturnType<typeof updateSearchRents>;
+
+export const cleanRents: ActionCreatorWithoutPayload = createAction('[RENTS] Limpiar Rentas');
+
+export type CleanRents = ReturnType<typeof cleanRents>;

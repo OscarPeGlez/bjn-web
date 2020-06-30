@@ -2,8 +2,15 @@ import React, { FC, useState } from 'react';
 import { Form, Image } from 'react-bootstrap';
 import { storage } from '../services/firebase';
 
-const FileUpload: FC = () => {
-  const [pictureFile, setPicture] = useState('');
+type FileUploadProps = {
+  urlFile?: string;
+};
+
+const FileUpload: FC<FileUploadProps> = props => {
+  const { urlFile } = props;
+  const url = urlFile || ' ';
+  const [pictureFile, setPicture] = useState(url);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [uploadValue, setUploadValue] = useState(0);
 
   const handledUpload = (event: any): void => {

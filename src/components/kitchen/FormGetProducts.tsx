@@ -7,7 +7,6 @@ import {
   ListGroup,
   OverlayTrigger,
   Row,
-
   TabPane,
   Tooltip
 } from 'react-bootstrap';
@@ -42,10 +41,11 @@ type ReduxProps = ConnectedProps<typeof connector>;
 type Props = RouteComponentProps & ReduxProps;
 
 const FormGetProducts: FC<Props> = props => {
-  const { actualizarConsulta, history, consulta, productos, cargando } = props;
+  const { actualizarConsulta, consulta, productos } = props;
 
   const [isUpdate, setIsUpdate] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
+  const [item, setItem] = useState({ name: '', sku: 0, url: ' ' });
 
   const consultaPalabras = trimAllWhitespace(consulta).split(' ');
   const consultaRegex = new RegExp(consultaPalabras.join('|'), 'gi');
@@ -58,7 +58,8 @@ const FormGetProducts: FC<Props> = props => {
     setIsDelete(!isDelete);
   };
 
-  const updateItem = (): void => {
+  const updateItem = (item: { name: string; sku: number; url: string }): void => {
+    setItem(item);
     setIsUpdate(!isUpdate);
   };
 
@@ -132,7 +133,7 @@ const FormGetProducts: FC<Props> = props => {
                 src={UpdateIcon}
                 className="img-fluid"
                 style={{ height: 20 }}
-                onClick={(): void => updateItem()}
+                onClick={(): void => updateItem({ name, sku, url: imagenUrl })}
               />
             </OverlayTrigger>
           </div>
@@ -203,7 +204,7 @@ const FormGetProducts: FC<Props> = props => {
     }).then(() => {
       setIsUpdate(false);
       setIsDelete(false);
-      actualizarConsulta('');
+      actualizarConsulta(consulta);
     });
   };
 
@@ -223,6 +224,7 @@ const FormGetProducts: FC<Props> = props => {
         show={isUpdate}
         confirmation={confirmation}
         noConfirmation={noConfirmation}
+        product={item}
       />
       <Form>
         <Form.Group className="mb-0">
